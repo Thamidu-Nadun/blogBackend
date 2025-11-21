@@ -1,4 +1,6 @@
+<div align="center">
 # 📝 Blog API - Spring Boot REST API
+</div>
 
 <div align="center">
 
