@@ -267,8 +267,8 @@ spring.datasource.password=
 
 # JPA/Hibernate
 spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
+# spring.jpa.show-sql=true # [optional] uncomment if you want
+# spring.jpa.properties.hibernate.format_sql=true # [optional] uncomment if you want
 
 # Server
 server.port=8080
@@ -370,23 +370,12 @@ We welcome contributions! Please follow these steps:
 **Thamidu Nadun**
 
 - GitHub: [@Thamidu-Nadun](https://github.com/Thamidu-Nadun)
-- Email: nadunrz101@gmail.com
-- Organization: [Luvynta](https://luvynta.io)
 
 ---
 
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
-
----
-
-## 🙏 Acknowledgments
-
-- Spring Boot Team for the amazing framework
-- MySQL for reliable database solutions
-- The Java community for continuous support
-- All contributors who help improve this project
 
 ---
 
