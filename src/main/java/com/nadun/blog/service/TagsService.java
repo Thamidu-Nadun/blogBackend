@@ -38,8 +38,23 @@ public class TagsService {
      * @param tag Tags
      * @return Tags
      */
-    public Tags saveTag(Tags tag) {
-        return tagsRepo.save(tag);
+    public Tags saveTag(String name) {
+        return tagsRepo.save(new Tags(null, name, null));
+    }
+
+    /**
+     * Update a tag
+     * 
+     * @param name {String}
+     * @return Tags
+     */
+    public Tags updateTag(Integer id, String name) {
+        Tags tag = tagsRepo.findById(id).orElse(null);
+        if (tag != null) {
+            tag.setName(name);
+            return tagsRepo.save(tag);
+        }
+        return null;
     }
 
     /**

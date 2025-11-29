@@ -44,6 +44,23 @@ public class CategoryService {
     }
 
     /**
+     * Update category by id
+     * 
+     * @param id   Category id
+     * @param name New category name
+     * @return Updated category
+     */
+    public Category updateCategory(Integer id, String name) {
+        Category category = getCategoryById(id);
+        if (category != null) {
+            category.setName(name);
+            category.setSlug(SlugUtil.toSlug(name));
+            return categoryRepo.save(category);
+        }
+        return null;
+    }
+
+    /**
      * Delete category by id
      * 
      * @param id Category id
