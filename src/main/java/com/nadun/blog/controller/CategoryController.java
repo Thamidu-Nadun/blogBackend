@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nadun.blog.dto.response.ResponseDto;
 import com.nadun.blog.model.Category;
 import com.nadun.blog.service.CategoryService;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
