@@ -1,5 +1,6 @@
 package com.nadun.blog.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,19 @@ public class TagsService {
      */
     public Tags saveTag(String name) {
         return tagsRepo.save(new Tags(null, name, null));
+    }
+
+    /**
+     * Save multiple tags | bulk save
+     * 
+     * @param tags List of Tags
+     * @return List of Tags
+     */
+    public List<Tags> saveAllTags(String names) {
+        List<Tags> tags = Arrays.stream(names.split(","))
+                .map(name -> new Tags(null, name.trim(), null))
+                .toList();
+        return tagsRepo.saveAll(tags);
     }
 
     /**
