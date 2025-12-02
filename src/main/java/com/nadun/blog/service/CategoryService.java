@@ -44,6 +44,12 @@ public class CategoryService {
         return categoryRepo.save(new Category(null, name, SlugUtil.toSlug(name), null));
     }
 
+    /**
+     * Save multiple categories from a comma-separated string
+     * 
+     * @param categories Comma-separated category names
+     * @return List of saved categories
+     */
     public List<Category> saveAllCategories(String categories) {
         List<Category> categoryList = Arrays.stream(categories.split(","))
                 .map(name -> new Category(null, name.trim(), SlugUtil.toSlug(name.trim()), null))
