@@ -12,5 +12,4 @@ public class CommentService {
     //
     // **todo: the business logic//*
     //
-    //
 }
