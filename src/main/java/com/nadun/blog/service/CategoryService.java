@@ -1,5 +1,6 @@
 package com.nadun.blog.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,13 @@ public class CategoryService {
      */
     public Category saveCategory(String name) {
         return categoryRepo.save(new Category(null, name, SlugUtil.toSlug(name), null));
+    }
+
+    public List<Category> saveAllCategories(String categories) {
+        List<Category> categoryList = Arrays.stream(categories.split(","))
+                .map(name -> new Category(null, name.trim(), SlugUtil.toSlug(name.trim()), null))
+                .toList();
+        return categoryRepo.saveAll(categoryList);
     }
 
     /**
