@@ -10,6 +10,5 @@ public class CommentService {
     @Autowired
     private CommentRepo commentRepo;
     //
-    // **todo: the business logic//*
     //
 }
