@@ -9,4 +9,5 @@ import com.nadun.blog.repo.CommentRepo;
 public class CommentService {
     @Autowired
     private CommentRepo commentRepo;
+    //
 }
