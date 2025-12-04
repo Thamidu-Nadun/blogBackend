@@ -3,9 +3,7 @@ package com.nadun.blog.model.content;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.nadun.blog.model.Category;
 import com.nadun.blog.model.Comment;
 import com.nadun.blog.model.Tags;

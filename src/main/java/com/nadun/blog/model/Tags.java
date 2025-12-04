@@ -3,9 +3,7 @@ package com.nadun.blog.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.nadun.blog.model.content.Content;
 
 import jakarta.persistence.Column;

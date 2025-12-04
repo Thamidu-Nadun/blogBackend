@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nadun.blog.dto.request.ArticleReqDto;
 import com.nadun.blog.dto.response.ArticleResDto;
 import com.nadun.blog.dto.response.ResponseDto;
-import com.nadun.blog.dto.response.TagsResDto;
 import com.nadun.blog.model.content.Article;
 import com.nadun.blog.service.ArticleService;
 
