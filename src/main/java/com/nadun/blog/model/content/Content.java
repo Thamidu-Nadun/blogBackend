@@ -3,12 +3,15 @@ package com.nadun.blog.model.content;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.nadun.blog.model.Category;
 import com.nadun.blog.model.Comment;
 import com.nadun.blog.model.Tags;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,17 +33,18 @@ public class Content {
     private Integer id;
 
     private String title;
+    @Column(unique = true)
     private String slug;
     private String description;
     private String coverImage;
     private boolean isPublished;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Comment> comments;
 
-    @JsonManagedReference
     @ManyToMany(mappedBy = "contents", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Tags> tags;
 
     @ManyToOne
@@ -52,8 +56,8 @@ public class Content {
     @JoinColumn(name = "series_id", nullable = true)
     private Series series;
 
-    private Long views;
-    private Long likes;
-    private Long shares;
+    private Integer views;
+    private Integer likes;
+    private Integer shares;
 
 }
