@@ -3,6 +3,8 @@ package com.nadun.blog.model;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.nadun.blog.model.content.Content;
 
 import jakarta.persistence.Entity;
@@ -31,7 +33,7 @@ public class Comment {
     private User author;
 
     @ManyToOne
-    @JoinColumn(name = "content_id")
     @JsonBackReference
+    @JoinColumn(name = "content_id")
     private Content content;
 }
