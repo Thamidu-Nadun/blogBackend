@@ -9,4 +9,6 @@ import com.nadun.blog.repo.WebStoryRepo;
 public class WebStoryService {
     @Autowired
     private WebStoryRepo webStoryRepo;
+
+    // TODO: Implement service methods for WebStory
 }
