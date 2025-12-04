@@ -2,6 +2,8 @@ package com.nadun.blog.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,10 +52,33 @@ public class TagsService {
      * @return List of Tags
      */
     public List<Tags> saveAllTags(String names) {
-        List<Tags> tags = Arrays.stream(names.split(","))
-                .map(name -> new Tags(null, name.trim(), null))
-                .toList();
-        return tagsRepo.saveAll(tags);
+        // 1. Split names by comma
+        Set<String> nameSet = Arrays.stream(names.split(","))
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .collect(java.util.stream.Collectors.toSet());
+
+        // 2. Find existing tags
+        List<Tags> existingTags = tagsRepo.findByNameIn(nameSet.stream().toList());
+        Set<String> existingTagNames = existingTags.stream()
+                .map(Tags::getName)
+                .collect(Collectors.toSet());
+
+        // 3. Remove existing tag names from the set
+        nameSet.removeAll(existingTagNames);
+
+        // 4. Create new Tags for remaining names
+        List<Tags> tags = nameSet.stream()
+                .map(name -> new Tags(null, name, null))
+                .collect(Collectors.toList());
+
+        // 5. Save new tags to the repository
+        List<Tags> savedTags = tagsRepo.saveAll(tags);
+
+        // 6. Combine existing tags with newly saved tags
+        existingTags.addAll(savedTags);
+
+        return existingTags;
     }
 
     /**
