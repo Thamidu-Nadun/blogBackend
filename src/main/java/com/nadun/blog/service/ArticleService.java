@@ -8,18 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nadun.blog.dto.request.ArticleReqDto;
+import com.nadun.blog.dto.response.ArticleResDto;
+import com.nadun.blog.dto.response.AuthorDto;
 import com.nadun.blog.dto.response.CategoryResDto;
 import com.nadun.blog.model.Category;
 import com.nadun.blog.model.Media;
 import com.nadun.blog.model.Tags;
+import com.nadun.blog.model.User;
 import com.nadun.blog.model.content.Article;
 import com.nadun.blog.repo.ArticleRepo;
+import com.nadun.blog.repo.UserRepo;
 import com.nadun.blog.utils.SlugUtil;
 
 @Service
 public class ArticleService {
     @Autowired
     private ArticleRepo articleRepo;
+
+    @Autowired
+    private UserRepo userRepo;
 
     @Autowired
     private MediaService mediaService;
@@ -37,8 +44,31 @@ public class ArticleService {
      * 
      * @return List<Article>
      */
-    public List<Article> getArticles() {
-        return articleRepo.findAll();
+    public List<ArticleResDto> getArticles() {
+        return articleRepo.findAll().stream().map(article -> {
+            ArticleResDto dto = new ArticleResDto();
+            dto.setId(article.getId());
+            dto.setTitle(article.getTitle());
+            dto.setSlug(article.getSlug());
+            dto.setDescription(article.getDescription());
+            dto.setCoverImage(article.getCoverImage());
+            dto.setPublished(article.isPublished());
+            dto.setBody(article.getBody());
+
+            User author = article.getAuthor();
+            if (author != null)
+                dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+
+            Category category = article.getCategory();
+            if (category != null)
+                dto.setCategory(modelMapper.map(article.getCategory(), CategoryResDto.class));
+
+            dto.setTags(article.getTags());
+            dto.setViews(article.getViews());
+            dto.setLikes(article.getLikes());
+            dto.setShares(article.getShares());
+            return dto;
+        }).toList();
     }
 
     /**
@@ -47,8 +77,33 @@ public class ArticleService {
      * @param id {Integer}
      * @return Article
      */
-    public Article getArticleById(Integer id) {
-        return articleRepo.findById(id).orElse(null);
+    public ArticleResDto getArticleById(Integer id) {
+        Article article = articleRepo.findById(id).orElse(null);
+        if (article == null) {
+            return null;
+        }
+        ArticleResDto dto = new ArticleResDto();
+        dto.setId(article.getId());
+        dto.setTitle(article.getTitle());
+        dto.setSlug(article.getSlug());
+        dto.setDescription(article.getDescription());
+        dto.setCoverImage(article.getCoverImage());
+        dto.setPublished(article.isPublished());
+        dto.setBody(article.getBody());
+
+        User author = article.getAuthor();
+        if (author != null)
+            dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+
+        Category category = article.getCategory();
+        if (category != null)
+            dto.setCategory(modelMapper.map(article.getCategory(), CategoryResDto.class));
+
+        dto.setTags(article.getTags());
+        dto.setViews(article.getViews());
+        dto.setLikes(article.getLikes());
+        dto.setShares(article.getShares());
+        return dto;
     }
 
     /**
@@ -57,8 +112,33 @@ public class ArticleService {
      * @param title {String}
      * @return Article
      */
-    public Article getArticleByTitle(String title) {
-        return articleRepo.findByTitle(title);
+    public ArticleResDto getArticleByTitle(String title) {
+        Article article = articleRepo.findByTitle(title);
+        if (article == null) {
+            return null;
+        }
+        ArticleResDto dto = new ArticleResDto();
+        dto.setId(article.getId());
+        dto.setTitle(article.getTitle());
+        dto.setSlug(article.getSlug());
+        dto.setDescription(article.getDescription());
+        dto.setCoverImage(article.getCoverImage());
+        dto.setPublished(article.isPublished());
+        dto.setBody(article.getBody());
+
+        User author = article.getAuthor();
+        if (author != null)
+            dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+
+        Category category = article.getCategory();
+        if (category != null)
+            dto.setCategory(modelMapper.map(article.getCategory(), CategoryResDto.class));
+
+        dto.setTags(article.getTags());
+        dto.setViews(article.getViews());
+        dto.setLikes(article.getLikes());
+        dto.setShares(article.getShares());
+        return dto;
     }
 
     /**
@@ -67,8 +147,31 @@ public class ArticleService {
      * @param slug {String}
      * @return Article
      */
-    public Article getArticleBySlug(String slug) {
-        return articleRepo.findBySlug(slug);
+    public ArticleResDto getArticleBySlug(String slug) {
+        Article article = articleRepo.findBySlug(slug);
+        if (article == null) {
+            return null;
+        }
+        ArticleResDto dto = new ArticleResDto();
+        dto.setId(article.getId());
+        dto.setTitle(article.getTitle());
+        dto.setSlug(article.getSlug());
+        dto.setDescription(article.getDescription());
+        dto.setCoverImage(article.getCoverImage());
+        dto.setPublished(article.isPublished());
+        dto.setBody(article.getBody());
+        User author = article.getAuthor();
+        if (author != null)
+            dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+        Category category = article.getCategory();
+        if (category != null)
+            dto.setCategory(modelMapper.map(article.getCategory(), CategoryResDto.class));
+
+        dto.setTags(article.getTags());
+        dto.setViews(article.getViews());
+        dto.setLikes(article.getLikes());
+        dto.setShares(article.getShares());
+        return dto;
     }
 
     /**
@@ -101,10 +204,17 @@ public class ArticleService {
      * @return Article
      */
     public Article saveArticle(ArticleReqDto articleDto) {
+
+        User author = userRepo.findById(articleDto.getAuthorId()).orElse(null);
+        if (author == null) {
+            return null;
+        }
+
         Article article = new Article();
         article.setTitle(articleDto.getTitle());
         article.setDescription(articleDto.getDescription());
         article.setPublished(articleDto.isPublished());
+        article.setAuthor(author);
         article.setLikes(0);
         article.setViews(0);
         article.setShares(0);
@@ -123,7 +233,10 @@ public class ArticleService {
 
         // 3. Set category
         CategoryResDto category = categoryService.getCategoryById(articleDto.getCategoryId());
-        article.setCategory(modelMapper.map(category, Category.class));
+        if (category != null) {
+            article.setCategory(modelMapper.map(category, Category.class));
+        }
+        article.setCategory(null);
 
         // 4. Set tags
         List<Tags> tags = tagsService.saveAllTags(articleDto.getTags());
@@ -167,6 +280,7 @@ public class ArticleService {
         article.setTitle(articleDto.getTitle());
         article.setDescription(articleDto.getDescription());
         article.setPublished(articleDto.isPublished());
+        article.setAuthor(article.getAuthor());
         article.setLikes(article.getLikes());
         article.setViews(article.getViews());
         article.setShares(article.getShares());

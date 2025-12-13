@@ -38,15 +38,12 @@ public class ArticleController {
     @GetMapping({ "", "/" })
     public ResponseEntity<ResponseDto> getArticles() {
         try {
-            List<Article> _articles = articleService.getArticles();
-
-            List<ArticleResDto> articles = _articles.stream().map(
-                    article -> mapper.map(article, ArticleResDto.class)).toList();
+            List<ArticleResDto> _articles = articleService.getArticles();
 
             return new ResponseEntity<>(
-                    new ResponseDto(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), articles), HttpStatus.OK);
+                    new ResponseDto(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), _articles), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), null),
+            return new ResponseEntity<>(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), e),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -54,17 +51,15 @@ public class ArticleController {
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto> getArticleById(@PathVariable Integer id) {
         try {
-            Article _article = articleService.getArticleById(id);
-            if (_article == null)
+            ArticleResDto article = articleService.getArticleById(id);
+            if (article == null)
                 return new ResponseEntity<>(new ResponseDto(
                         HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
                         null), HttpStatus.NOT_FOUND);
-            ArticleResDto article = mapper.map(
-                    _article, ArticleResDto.class);
             return new ResponseEntity<>(new ResponseDto(HttpStatus.OK.value(),
                     HttpStatus.OK.getReasonPhrase(), article), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), null),
+            return new ResponseEntity<>(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), e),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -72,13 +67,11 @@ public class ArticleController {
     @GetMapping("/title")
     public ResponseEntity<ResponseDto> getArticleByTitle(@RequestParam String title) {
         try {
-            Article _article = articleService.getArticleByTitle(title);
-            if (_article == null)
+            ArticleResDto article = articleService.getArticleByTitle(title);
+            if (article == null)
                 return new ResponseEntity<>(new ResponseDto(
                         HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
                         null), HttpStatus.NOT_FOUND);
-            ArticleResDto article = mapper.map(
-                    _article, ArticleResDto.class);
             return new ResponseEntity<>(new ResponseDto(HttpStatus.OK.value(),
                     HttpStatus.OK.getReasonPhrase(), article), HttpStatus.OK);
         } catch (Exception e) {
@@ -90,12 +83,11 @@ public class ArticleController {
     @GetMapping("/slug")
     public ResponseEntity<ResponseDto> getArticleBySlug(@RequestParam String slug) {
         try {
-            Article _article = articleService.getArticleBySlug(slug);
-            if (_article == null)
+            ArticleResDto article = articleService.getArticleBySlug(slug);
+            if (article == null)
                 return new ResponseEntity<>(new ResponseDto(
                         HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
                         null), HttpStatus.NOT_FOUND);
-            ArticleResDto article = mapper.map(_article, ArticleResDto.class);
             return new ResponseEntity<>(
                     new ResponseDto(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), article), HttpStatus.OK);
         } catch (Exception e) {
@@ -129,7 +121,7 @@ public class ArticleController {
                     new ResponseDto(HttpStatus.CREATED.value(), HttpStatus.CREATED.getReasonPhrase(), savedArticle),
                     HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), null),
+            return new ResponseEntity<>(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), e),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

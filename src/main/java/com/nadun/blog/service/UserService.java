@@ -49,9 +49,9 @@ public class UserService {
         String verificationToken = Verification.generateToken();
 
         // save user
-        User newUser = new User(null, name, email, password,
-                false, Date.valueOf(LocalDate.now()), null,
-                null, verificationToken);
+        User newUser = new User(null, name, email, password, false,
+                Date.valueOf(LocalDate.now()), null, null, null,
+                verificationToken);
         newUser = userRepo.save(newUser);
 
         // send verification mail

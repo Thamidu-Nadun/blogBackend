@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.nadun.blog.model.Category;
 import com.nadun.blog.model.Comment;
 import com.nadun.blog.model.Tags;
+import com.nadun.blog.model.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -36,6 +37,10 @@ public class Content {
     private String description;
     private String coverImage;
     private boolean isPublished;
+
+    @ManyToOne
+    @JsonBackReference
+    private User author;
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
     @JsonManagedReference

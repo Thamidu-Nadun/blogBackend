@@ -12,13 +12,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArticleResDto {
-    private Long id;
+    private Integer id;
     private String title;
     private String slug;
     private String description;
     private String coverImage;
     private boolean isPublished;
     private String body;
+    private AuthorDto authorId;
     private CategoryResDto category;
     private List<Tags> tags;
     private Integer views;

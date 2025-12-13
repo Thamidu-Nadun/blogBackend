@@ -12,6 +12,7 @@ public class ArticleReqDto {
     private String description;
     private String coverImageUrl;
     private boolean isPublished;
+    private Integer authorId;
     private Integer categoryId;
     private String tags;
     private String body;
