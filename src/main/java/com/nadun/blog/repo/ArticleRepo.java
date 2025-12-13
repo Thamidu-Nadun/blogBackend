@@ -18,7 +18,7 @@ public interface ArticleRepo extends JpaRepository<Article, Integer> {
 
     Article findByTitle(String title);
 
-    List<Article> findByIsPublished(boolean published);
+    List<Article> findByPublished(boolean published);
 
     List<Article> findByCategory(Category category);
 

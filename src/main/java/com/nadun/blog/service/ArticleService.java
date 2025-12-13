@@ -181,7 +181,7 @@ public class ArticleService {
      * @return List<Article>
      */
     public List<Article> getArticlesByPublished(boolean isPublished) {
-        return articleRepo.findByIsPublished(isPublished);
+        return articleRepo.findByPublished(isPublished);
     }
 
     /**
@@ -206,18 +206,17 @@ public class ArticleService {
     public Article saveArticle(ArticleReqDto articleDto) {
 
         User author = userRepo.findById(articleDto.getAuthorId()).orElse(null);
-        if (author == null) {
-            return null;
-        }
 
         Article article = new Article();
         article.setTitle(articleDto.getTitle());
         article.setDescription(articleDto.getDescription());
         article.setPublished(articleDto.isPublished());
-        article.setAuthor(author);
         article.setLikes(0);
         article.setViews(0);
         article.setShares(0);
+        if (author != null) {
+            article.setAuthor(author);
+        }
 
         // 1. Generate slug
         String baseSlug = SlugUtil.toSlug(articleDto.getTitle());
@@ -236,7 +235,6 @@ public class ArticleService {
         if (category != null) {
             article.setCategory(modelMapper.map(category, Category.class));
         }
-        article.setCategory(null);
 
         // 4. Set tags
         List<Tags> tags = tagsService.saveAllTags(articleDto.getTags());

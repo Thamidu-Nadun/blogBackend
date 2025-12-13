@@ -36,7 +36,7 @@ public class Content {
     private String slug;
     private String description;
     private String coverImage;
-    private boolean isPublished;
+    private boolean published;
 
     @ManyToOne
     @JsonBackReference
