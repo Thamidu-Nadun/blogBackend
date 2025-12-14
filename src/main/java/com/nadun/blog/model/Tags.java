@@ -28,9 +28,8 @@ public class Tags {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "tags")
     @JsonBackReference
     @JsonIgnore
-    @JoinTable(name = "content_tags", joinColumns = @jakarta.persistence.JoinColumn(name = "tag_id"), inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "content_id"))
     private List<Content> contents;
 }

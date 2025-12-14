@@ -299,11 +299,16 @@ public class ArticleService {
 
         // Update category
         CategoryResDto category = categoryService.getCategoryById(articleDto.getCategoryId());
-        article.setCategory(modelMapper.map(category, Category.class));
+        if (category != null) {
+            article.setCategory(modelMapper.map(category, Category.class));
+        } else {
+            article.setCategory(article.getCategory());
+        }
 
         // Update tags
         List<Tags> tags = tagsService.saveAllTags(articleDto.getTags());
-        article.setTags(tags);
+        article.getTags().clear();
+        article.getTags().addAll(tags);
 
         // Update body
         article.setBody(articleDto.getBody());

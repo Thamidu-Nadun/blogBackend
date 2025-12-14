@@ -131,12 +131,17 @@ public class ArticleController {
             @RequestBody ArticleReqDto articleReqDto) {
         try {
             Article _updatedArticle = articleService.updateArticle(id, articleReqDto);
+            if (_updatedArticle == null) {
+                return new ResponseEntity<>(new ResponseDto(
+                        HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        null), HttpStatus.NOT_FOUND);
+            }
             ArticleResDto updatedArticle = mapper.map(_updatedArticle, ArticleResDto.class);
             return new ResponseEntity<>(
                     new ResponseDto(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), updatedArticle),
                     HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), null),
+            return new ResponseEntity<>(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), e),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
