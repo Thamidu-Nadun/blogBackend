@@ -192,9 +192,34 @@ public class ArticleService {
      * 
      * @return List<Article>
      */
-    public Page<Article> getLatestArticles(int page, int size) {
+    public Page<ArticleResDto> getLatestArticles(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return articleRepo.getLatestArticles(pageable);
+        Page<Article> articlesPage = articleRepo.getLatestArticles(pageable);
+
+        return articlesPage.map(article -> {
+            ArticleResDto dto = new ArticleResDto();
+            dto.setId(article.getId());
+            dto.setTitle(article.getTitle());
+            dto.setSlug(article.getSlug());
+            dto.setDescription(article.getDescription());
+            dto.setCoverImage(article.getCoverImage());
+            dto.setPublished(article.isPublished());
+            dto.setBody(article.getBody());
+
+            User author = article.getAuthor();
+            if (author != null)
+                dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+
+            Category category = article.getCategory();
+            if (category != null)
+                dto.setCategory(modelMapper.map(article.getCategory(), CategoryResDto.class));
+
+            dto.setTags(article.getTags());
+            dto.setViews(article.getViews());
+            dto.setLikes(article.getLikes());
+            dto.setShares(article.getShares());
+            return dto;
+        });
     }
 
     /**
@@ -202,9 +227,34 @@ public class ArticleService {
      * 
      * @return List<Article>
      */
-    public Page<Article> getPopularArticles(int page, int size) {
+    public Page<ArticleResDto> getPopularArticles(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return articleRepo.getPopularArticles(pageable);
+        Page<Article> articlesPage = articleRepo.getPopularArticles(pageable);
+
+        return articlesPage.map(article -> {
+            ArticleResDto dto = new ArticleResDto();
+            dto.setId(article.getId());
+            dto.setTitle(article.getTitle());
+            dto.setSlug(article.getSlug());
+            dto.setDescription(article.getDescription());
+            dto.setCoverImage(article.getCoverImage());
+            dto.setPublished(article.isPublished());
+            dto.setBody(article.getBody());
+
+            User author = article.getAuthor();
+            if (author != null)
+                dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+
+            Category category = article.getCategory();
+            if (category != null)
+                dto.setCategory(modelMapper.map(article.getCategory(), CategoryResDto.class));
+
+            dto.setTags(article.getTags());
+            dto.setViews(article.getViews());
+            dto.setLikes(article.getLikes());
+            dto.setShares(article.getShares());
+            return dto;
+        });
     }
 
     /**

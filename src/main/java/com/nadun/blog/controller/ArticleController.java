@@ -77,19 +77,14 @@ public class ArticleController {
     public ResponseEntity<ResponseDto> getLatestArticles(@RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size) {
         try {
-            Page<Article> _articles = articleService.getLatestArticles(page, size);
+            Page<ArticleResDto> _articles = articleService.getLatestArticles(page, size);
             if (_articles != null && _articles.isEmpty()) {
                 return new ResponseEntity<>(new ResponseDto(
                         HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
                         null), HttpStatus.NOT_FOUND);
             }
-
-            Type listType = new TypeToken<Page<ArticleResDto>>() {
-            }.getType();
-            Page<ArticleResDto> articles = mapper.map(_articles, listType);
-
             return new ResponseEntity<>(
-                    new ResponseDto(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), articles), HttpStatus.OK);
+                    new ResponseDto(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), _articles), HttpStatus.OK);
 
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), e),
@@ -102,19 +97,15 @@ public class ArticleController {
     public ResponseEntity<ResponseDto> getPopularArticles(@RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size) {
         try {
-            Page<Article> _articles = articleService.getPopularArticles(page, size);
+            Page<ArticleResDto> _articles = articleService.getPopularArticles(page, size);
             if (_articles != null && _articles.isEmpty()) {
                 return new ResponseEntity<>(new ResponseDto(
                         HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
                         null), HttpStatus.NOT_FOUND);
             }
 
-            Type listType = new TypeToken<Page<ArticleResDto>>() {
-            }.getType();
-            Page<ArticleResDto> articles = mapper.map(_articles, listType);
-
             return new ResponseEntity<>(
-                    new ResponseDto(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), articles), HttpStatus.OK);
+                    new ResponseDto(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), _articles), HttpStatus.OK);
 
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), e),
