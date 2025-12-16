@@ -1,5 +1,7 @@
 package com.nadun.blog.repo;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -23,4 +25,10 @@ public interface ArticleRepo extends JpaRepository<Article, Integer> {
     List<Article> findByCategory(Category category);
 
     List<Article> findBySeries(Series series);
+
+    @Query("SELECT a FROM Article a ORDER BY a.id DESC")
+    Page<Article> getLatestArticles(Pageable pageable);
+
+    @Query("SELECT a FROM Article a ORDER BY a.views DESC")
+    List<Article> getPopularArticles();
 }

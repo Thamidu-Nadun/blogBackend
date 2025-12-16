@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.nadun.blog.dto.request.ArticleReqDto;
@@ -182,6 +185,25 @@ public class ArticleService {
      */
     public List<Article> getArticlesByPublished(boolean isPublished) {
         return articleRepo.findByPublished(isPublished);
+    }
+
+    /**
+     * Get latest articles
+     * 
+     * @return List<Article>
+     */
+    public Page<Article> getLatestArticles(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return articleRepo.getLatestArticles(pageable);
+    }
+
+    /**
+     * Get popular articles
+     * 
+     * @return List<Article>
+     */
+    public List<Article> getPopularArticles() {
+        return articleRepo.getPopularArticles();
     }
 
     /**
