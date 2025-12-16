@@ -99,18 +99,19 @@ public class ArticleController {
     }
 
     @GetMapping("/popular")
-    public ResponseEntity<ResponseDto> getPopularArticles() {
+    public ResponseEntity<ResponseDto> getPopularArticles(@RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size) {
         try {
-            List<Article> _articles = articleService.getPopularArticles();
+            Page<Article> _articles = articleService.getPopularArticles(page, size);
             if (_articles != null && _articles.isEmpty()) {
                 return new ResponseEntity<>(new ResponseDto(
                         HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
                         null), HttpStatus.NOT_FOUND);
             }
 
-            Type listType = new TypeToken<List<ArticleResDto>>() {
+            Type listType = new TypeToken<Page<ArticleResDto>>() {
             }.getType();
-            List<ArticleResDto> articles = mapper.map(_articles, listType);
+            Page<ArticleResDto> articles = mapper.map(_articles, listType);
 
             return new ResponseEntity<>(
                     new ResponseDto(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), articles), HttpStatus.OK);

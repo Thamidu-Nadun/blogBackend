@@ -202,8 +202,9 @@ public class ArticleService {
      * 
      * @return List<Article>
      */
-    public List<Article> getPopularArticles() {
-        return articleRepo.getPopularArticles();
+    public Page<Article> getPopularArticles(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return articleRepo.getPopularArticles(pageable);
     }
 
     /**

@@ -30,5 +30,5 @@ public interface ArticleRepo extends JpaRepository<Article, Integer> {
     Page<Article> getLatestArticles(Pageable pageable);
 
     @Query("SELECT a FROM Article a ORDER BY a.views DESC")
-    List<Article> getPopularArticles();
+    Page<Article> getPopularArticles(Pageable pageable);
 }
