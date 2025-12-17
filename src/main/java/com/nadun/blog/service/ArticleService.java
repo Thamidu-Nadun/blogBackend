@@ -60,7 +60,7 @@ public class ArticleService {
 
             User author = article.getAuthor();
             if (author != null)
-                dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+                dto.setAuthorId(new AuthorDto(author.getId(), author.getUsername()));
 
             Category category = article.getCategory();
             if (category != null)
@@ -96,7 +96,7 @@ public class ArticleService {
 
         User author = article.getAuthor();
         if (author != null)
-            dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+            dto.setAuthorId(new AuthorDto(author.getId(), author.getUsername()));
 
         Category category = article.getCategory();
         if (category != null)
@@ -131,7 +131,7 @@ public class ArticleService {
 
         User author = article.getAuthor();
         if (author != null)
-            dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+            dto.setAuthorId(new AuthorDto(author.getId(), author.getUsername()));
 
         Category category = article.getCategory();
         if (category != null)
@@ -165,7 +165,7 @@ public class ArticleService {
         dto.setBody(article.getBody());
         User author = article.getAuthor();
         if (author != null)
-            dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+            dto.setAuthorId(new AuthorDto(author.getId(), author.getUsername()));
         Category category = article.getCategory();
         if (category != null)
             dto.setCategory(modelMapper.map(article.getCategory(), CategoryResDto.class));
@@ -208,7 +208,7 @@ public class ArticleService {
 
             User author = article.getAuthor();
             if (author != null)
-                dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+                dto.setAuthorId(new AuthorDto(author.getId(), author.getUsername()));
 
             Category category = article.getCategory();
             if (category != null)
@@ -243,7 +243,7 @@ public class ArticleService {
 
             User author = article.getAuthor();
             if (author != null)
-                dto.setAuthorId(new AuthorDto(author.getId(), author.getName()));
+                dto.setAuthorId(new AuthorDto(author.getId(), author.getUsername()));
 
             Category category = article.getCategory();
             if (category != null)

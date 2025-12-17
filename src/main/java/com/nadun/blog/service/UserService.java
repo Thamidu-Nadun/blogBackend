@@ -5,8 +5,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.nadun.blog.model.Role;
 import com.nadun.blog.model.User;
 import com.nadun.blog.repo.UserRepo;
 import com.nadun.blog.utils.Verification;
@@ -18,6 +20,12 @@ public class UserService {
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtService jwtService;
 
     /**
      * Get all users
@@ -48,10 +56,13 @@ public class UserService {
         // generate a new token
         String verificationToken = Verification.generateToken();
 
+        // encode password
+        password = passwordEncoder.encode(password);
+
         // save user
         User newUser = new User(null, name, email, password, false,
                 Date.valueOf(LocalDate.now()), null, null, null,
-                verificationToken);
+                verificationToken, Role.ROLE_READER);
         newUser = userRepo.save(newUser);
 
         // send verification mail
@@ -66,6 +77,25 @@ public class UserService {
             e.printStackTrace();
         }
         return newUser;
+    }
+
+    /**
+     * Generate login token for user
+     * 
+     * @param email
+     * @param password
+     * @return JWT token
+     * @throws Exception
+     */
+    public String generateLoginToken(String email, String password) throws Exception {
+        User user = userRepo.findByEmail(email);
+        if (user == null) {
+            throw new Exception("User not found");
+        }
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new Exception("Invalid credentials");
+        }
+        return jwtService.generateToken(user);
     }
 
     /**

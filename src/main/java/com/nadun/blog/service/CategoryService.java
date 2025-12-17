@@ -15,17 +15,13 @@ import com.nadun.blog.utils.SlugUtil;
 
 @Service
 public class CategoryService {
-
-    private final ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
     @Autowired
     private CategoryRepo categoryRepo;
 
     @Autowired
     private ArticleRepo articleRepo;
-
-    CategoryService(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
 
     /**
      * Get all categories

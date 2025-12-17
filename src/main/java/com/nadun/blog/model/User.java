@@ -8,6 +8,8 @@ import com.nadun.blog.model.content.Content;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,7 +26,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
+    private String username;
     private String email;
     private String password;
     private boolean isVerified;
@@ -43,4 +45,7 @@ public class User {
     private List<Bookmark> bookmarks;
 
     private String verificationToken;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
