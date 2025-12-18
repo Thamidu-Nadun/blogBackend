@@ -28,10 +28,55 @@ public class SecurityConfig {
                         .sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Permit all requests to authentication endpoints
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/users/verify/**").permitAll()
 
-                        .requestMatchers(HttpMethod.GET, "/api/v1/articles/**")
-                        .hasAnyRole("ADMIN", "AUTHOR", "READER", "GUEST")
+                        // GET Public Endpoints
+                        .requestMatchers(HttpMethod.GET, "/api/v1/articles/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/tags/**").permitAll()
+
+                        // App Endpoints
+                        .requestMatchers("/api/v1/status/**")
+                        .hasAnyRole("ADMIN")
+
+                        // Article endpoints
+                        .requestMatchers(HttpMethod.POST, "/api/v1/articles/save")
+                        .hasAnyRole("ADMIN", "AUTHOR")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/articles/update/**")
+                        .hasAnyRole("ADMIN", "AUTHOR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/articles/delete/**")
+                        .hasAnyRole("ADMIN", "AUTHOR")
+
+                        // Category endpoints
+                        .requestMatchers(HttpMethod.POST, "/api/v1/categories/save")
+                        .hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/categories/update/**")
+                        .hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/categories/delete/**")
+                        .hasRole("ADMIN")
+
+                        // Comment endpoints
+                        // todo: add comment endpoint
+
+                        // Tag endpoints
+                        .requestMatchers(HttpMethod.POST, "/api/v1/tags/**")
+                        .hasAnyRole("ADMIN", "AUTHOR")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/tags/**")
+                        .hasAnyRole("ADMIN", "AUTHOR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/tags/**")
+                        .hasAnyRole("ADMIN", "AUTHOR")
+
+                        // User endpoints
+                        .requestMatchers(HttpMethod.GET, "/api/v1/users/**")
+                        .hasAnyRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users/**")
+                        .hasAnyRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/users/**")
+                        .hasAnyRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**")
+                        .hasAnyRole("ADMIN")
 
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter,
