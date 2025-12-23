@@ -18,10 +18,12 @@ import com.nadun.blog.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -68,9 +70,10 @@ public class AuthController {
 
             Cookie authCookie = new Cookie("AUTH_TOKEN", token);
             authCookie.setHttpOnly(true);
+            authCookie.setSecure(false);
             authCookie.setPath("/");
             authCookie.setMaxAge(60 * 60); // 1 hour
-            authCookie.setAttribute("SameSite", "Strict");
+            authCookie.setAttribute("SameSite", "Lax");
 
             response.addCookie(authCookie);
             return new ResponseEntity<>(new ResponseDto(HttpStatus.OK.value(),
