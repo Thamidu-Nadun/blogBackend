@@ -1,5 +1,6 @@
 package com.nadun.blog.model.content;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -35,6 +36,7 @@ public class Content {
     private String title;
     @Column(unique = true)
     private String slug;
+    private Date publishedDate;
     private String description;
     private String coverImage;
     private boolean published;

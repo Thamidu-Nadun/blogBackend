@@ -1,5 +1,6 @@
 package com.nadun.blog.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class ArticleService {
             dto.setTitle(article.getTitle());
             dto.setSlug(article.getSlug());
             dto.setDescription(article.getDescription());
+            dto.setPublishedDate(article.getPublishedDate());
             dto.setCoverImage(article.getCoverImage());
             dto.setPublished(article.isPublished());
             dto.setBody(article.getBody());
@@ -90,6 +92,7 @@ public class ArticleService {
         dto.setTitle(article.getTitle());
         dto.setSlug(article.getSlug());
         dto.setDescription(article.getDescription());
+        dto.setPublishedDate(article.getPublishedDate());
         dto.setCoverImage(article.getCoverImage());
         dto.setPublished(article.isPublished());
         dto.setBody(article.getBody());
@@ -125,6 +128,7 @@ public class ArticleService {
         dto.setTitle(article.getTitle());
         dto.setSlug(article.getSlug());
         dto.setDescription(article.getDescription());
+        dto.setPublishedDate(article.getPublishedDate());
         dto.setCoverImage(article.getCoverImage());
         dto.setPublished(article.isPublished());
         dto.setBody(article.getBody());
@@ -160,6 +164,7 @@ public class ArticleService {
         dto.setTitle(article.getTitle());
         dto.setSlug(article.getSlug());
         dto.setDescription(article.getDescription());
+        dto.setPublishedDate(article.getPublishedDate());
         dto.setCoverImage(article.getCoverImage());
         dto.setPublished(article.isPublished());
         dto.setBody(article.getBody());
@@ -202,6 +207,7 @@ public class ArticleService {
             dto.setTitle(article.getTitle());
             dto.setSlug(article.getSlug());
             dto.setDescription(article.getDescription());
+            dto.setPublishedDate(article.getPublishedDate());
             dto.setCoverImage(article.getCoverImage());
             dto.setPublished(article.isPublished());
             dto.setBody(article.getBody());
@@ -237,6 +243,7 @@ public class ArticleService {
             dto.setTitle(article.getTitle());
             dto.setSlug(article.getSlug());
             dto.setDescription(article.getDescription());
+            dto.setPublishedDate(article.getPublishedDate());
             dto.setCoverImage(article.getCoverImage());
             dto.setPublished(article.isPublished());
             dto.setBody(article.getBody());
@@ -284,6 +291,7 @@ public class ArticleService {
         article.setTitle(articleDto.getTitle());
         article.setDescription(articleDto.getDescription());
         article.setPublished(articleDto.isPublished());
+        article.setPublishedDate(new Date(System.currentTimeMillis()));
         article.setLikes(0);
         article.setViews(0);
         article.setShares(0);
@@ -352,6 +360,7 @@ public class ArticleService {
         article.setDescription(articleDto.getDescription());
         article.setPublished(articleDto.isPublished());
         article.setAuthor(article.getAuthor());
+        article.setPublishedDate(article.getPublishedDate());
         article.setLikes(article.getLikes());
         article.setViews(article.getViews());
         article.setShares(article.getShares());

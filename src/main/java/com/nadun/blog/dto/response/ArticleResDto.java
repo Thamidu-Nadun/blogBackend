@@ -1,5 +1,6 @@
 package com.nadun.blog.dto.response;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.nadun.blog.model.Tags;
@@ -17,6 +18,7 @@ public class ArticleResDto {
     private String slug;
     private String description;
     private String coverImage;
+    private Date publishedDate;
     private boolean isPublished;
     private String body;
     private AuthorDto authorId;
