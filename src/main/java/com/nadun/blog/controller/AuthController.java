@@ -71,10 +71,10 @@ public class AuthController {
 
             Cookie authCookie = new Cookie("AUTH_TOKEN", token);
             authCookie.setHttpOnly(true);
-            authCookie.setSecure(false);
+            authCookie.setSecure(true);
             authCookie.setPath("/");
             authCookie.setMaxAge(60 * 60); // 1 hour
-            authCookie.setAttribute("SameSite", "Lax");
+            authCookie.setAttribute("SameSite", "None");
 
             response.addCookie(authCookie);
             return new ResponseEntity<>(new ResponseDto(HttpStatus.OK.value(),
