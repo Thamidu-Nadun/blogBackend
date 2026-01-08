@@ -33,7 +33,8 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<?> getMe(Authentication authentication) {
         if (authentication == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Unauthorized"));
         }
 
         return new ResponseEntity<>(
