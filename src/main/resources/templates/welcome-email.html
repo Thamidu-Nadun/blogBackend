@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Techno!</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+    <table width="100%" cellpadding="0" cellspacing="0"
+        style="max-width: 600px; margin: 30px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <tr>
+            <td style="background-color: #ff8904; padding: 20px; color: #ffffff; text-align: center;">
+                <h1 style="margin: 0; font-size: 28px;">Welcome, <span th:text="${name}">User</span>!</h1>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px; color: #333333; font-size: 16px; line-height: 1.5;">
+                <p>Thank you for signing up for <strong>Techno</strong>. Your email is <strong
+                        th:text="${username}">username</strong>.</p>
+                <p>To get started, please verify your email by clicking the button below:</p>
+                <p style="text-align: center; margin: 30px 0;">
+                    <a th:href="${verificationLink}"
+                        style="background-color: #ff8904; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 5px; display: inline-block; font-weight: bold;">
+                        Verify Email
+                    </a>
+                </p>
+                <p>If you did not sign up for this account, you can safely ignore this email.</p>
+                <p style="margin-top: 30px;">Cheers,<br>Techno</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: #f4f4f4; padding: 10px; text-align: center; color: #888888; font-size: 12px;">
+                &copy; 2026 Techno. All rights reserved.
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

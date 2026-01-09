@@ -5,8 +5,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
 
 import com.nadun.blog.model.Role;
 import com.nadun.blog.model.User;
@@ -26,6 +28,9 @@ public class UserService {
 
     @Autowired
     private JwtService jwtService;
+
+    @Value("${app.base-url}")
+    private String baseUrl;
 
     /**
      * Get all users
@@ -67,10 +72,16 @@ public class UserService {
 
         // send verification mail
         try {
-            mailService.sendMail(newUser.getEmail(), "Verification Email",
-                    "verify http://localhost:8080/api/v1/users/verify/" +
-                            newUser.getId() + "?token=" +
-                            verificationToken);
+            String verificationLink = baseUrl + "/api/v1/users/verify/" +
+                    newUser.getId() + "?token=" +
+                    verificationToken;
+            Context context = new Context();
+            context.setVariable("name", newUser.getUsername());
+            context.setVariable("username", newUser.getEmail());
+            context.setVariable("verificationLink", verificationLink);
+
+            mailService.sendHtmlMail(newUser.getEmail(), "Verification Email",
+                    "welcome-email", context);
 
         } catch (Exception e) {
             System.err.println("Failed to send verification email to " + newUser.getEmail());
