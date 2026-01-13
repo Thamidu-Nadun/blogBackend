@@ -63,8 +63,8 @@ public class Content {
     @JoinColumn(name = "series_id", nullable = true)
     private Series series;
 
-    private Integer views;
-    private Integer likes;
-    private Integer shares;
+    private Long views;
+    private Long likes;
+    private Long shares;
 
 }

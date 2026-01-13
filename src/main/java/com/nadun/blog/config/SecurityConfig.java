@@ -39,10 +39,14 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/me").authenticated()
                         .requestMatchers("/api/v1/auth/logout").authenticated()
 
-                        // GET Public Endpoints
+                        // GET Public Entity Endpoints
                         .requestMatchers(HttpMethod.GET, "/api/v1/articles/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/tags/**").permitAll()
+
+                        // Public Engagement Endpoints
+                        .requestMatchers(HttpMethod.GET, "/api/v1/engagement/articles/views/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/engagement/articles/views/**").permitAll()
 
                         // App Endpoints
                         .requestMatchers("/api/v1/status/**")

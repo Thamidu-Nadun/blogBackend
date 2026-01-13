@@ -24,7 +24,7 @@ public class ArticleResDto {
     private AuthorDto authorId;
     private CategoryResDto category;
     private List<Tags> tags;
-    private Integer views;
-    private Integer likes;
-    private Integer shares;
+    private Long views;
+    private Long likes;
+    private Long shares;
 }

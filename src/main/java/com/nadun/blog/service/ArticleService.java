@@ -292,9 +292,9 @@ public class ArticleService {
         article.setDescription(articleDto.getDescription());
         article.setPublished(articleDto.isPublished());
         article.setPublishedDate(new Date(System.currentTimeMillis()));
-        article.setLikes(0);
-        article.setViews(0);
-        article.setShares(0);
+        article.setLikes(0L);
+        article.setViews(0L);
+        article.setShares(0L);
         if (author != null) {
             article.setAuthor(author);
         }
