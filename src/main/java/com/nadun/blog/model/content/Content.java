@@ -7,11 +7,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.nadun.blog.model.Category;
 import com.nadun.blog.model.Comment;
+import com.nadun.blog.model.Reaction;
 import com.nadun.blog.model.Tags;
 import com.nadun.blog.model.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -64,7 +66,8 @@ public class Content {
     private Series series;
 
     private Long views;
-    private Long likes;
+    @Embedded
+    private Reaction reactions;
     private Long shares;
 
 }

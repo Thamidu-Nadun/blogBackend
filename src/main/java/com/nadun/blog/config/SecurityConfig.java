@@ -47,6 +47,12 @@ public class SecurityConfig {
                         // Public Engagement Endpoints
                         .requestMatchers(HttpMethod.GET, "/api/v1/engagement/articles/views/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/v1/engagement/articles/views/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/engagement/articles/reactions/**").permitAll()
+
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/engagement/articles/reactions/engage/**")
+                        .hasAnyRole("ADMIN", "AUTHOR", "READER")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/engagement/articles/reactions/**")
+                        .hasAnyRole("ADMIN")
 
                         // App Endpoints
                         .requestMatchers("/api/v1/status/**")

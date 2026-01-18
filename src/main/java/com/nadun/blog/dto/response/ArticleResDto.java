@@ -3,6 +3,7 @@ package com.nadun.blog.dto.response;
 import java.sql.Date;
 import java.util.List;
 
+import com.nadun.blog.model.Reaction;
 import com.nadun.blog.model.Tags;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +26,6 @@ public class ArticleResDto {
     private CategoryResDto category;
     private List<Tags> tags;
     private Long views;
-    private Long likes;
+    private Reaction reactions;
     private Long shares;
 }

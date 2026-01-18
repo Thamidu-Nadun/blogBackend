@@ -17,6 +17,7 @@ import com.nadun.blog.dto.response.AuthorDto;
 import com.nadun.blog.dto.response.CategoryResDto;
 import com.nadun.blog.model.Category;
 import com.nadun.blog.model.Media;
+import com.nadun.blog.model.Reaction;
 import com.nadun.blog.model.Tags;
 import com.nadun.blog.model.User;
 import com.nadun.blog.model.content.Article;
@@ -70,7 +71,7 @@ public class ArticleService {
 
             dto.setTags(article.getTags());
             dto.setViews(article.getViews());
-            dto.setLikes(article.getLikes());
+            dto.setReactions(article.getReactions());
             dto.setShares(article.getShares());
             return dto;
         }).toList();
@@ -107,7 +108,7 @@ public class ArticleService {
 
         dto.setTags(article.getTags());
         dto.setViews(article.getViews());
-        dto.setLikes(article.getLikes());
+        dto.setReactions(article.getReactions());
         dto.setShares(article.getShares());
         return dto;
     }
@@ -143,7 +144,7 @@ public class ArticleService {
 
         dto.setTags(article.getTags());
         dto.setViews(article.getViews());
-        dto.setLikes(article.getLikes());
+        dto.setReactions(article.getReactions());
         dto.setShares(article.getShares());
         return dto;
     }
@@ -177,7 +178,7 @@ public class ArticleService {
 
         dto.setTags(article.getTags());
         dto.setViews(article.getViews());
-        dto.setLikes(article.getLikes());
+        dto.setReactions(article.getReactions());
         dto.setShares(article.getShares());
         return dto;
     }
@@ -222,7 +223,7 @@ public class ArticleService {
 
             dto.setTags(article.getTags());
             dto.setViews(article.getViews());
-            dto.setLikes(article.getLikes());
+            dto.setReactions(article.getReactions());
             dto.setShares(article.getShares());
             return dto;
         });
@@ -258,7 +259,7 @@ public class ArticleService {
 
             dto.setTags(article.getTags());
             dto.setViews(article.getViews());
-            dto.setLikes(article.getLikes());
+            dto.setReactions(article.getReactions());
             dto.setShares(article.getShares());
             return dto;
         });
@@ -292,7 +293,7 @@ public class ArticleService {
         article.setDescription(articleDto.getDescription());
         article.setPublished(articleDto.isPublished());
         article.setPublishedDate(new Date(System.currentTimeMillis()));
-        article.setLikes(0L);
+        article.setReactions(new Reaction(0, 0, 0, 0, 0, 0));
         article.setViews(0L);
         article.setShares(0L);
         if (author != null) {
@@ -361,7 +362,7 @@ public class ArticleService {
         article.setPublished(articleDto.isPublished());
         article.setAuthor(article.getAuthor());
         article.setPublishedDate(article.getPublishedDate());
-        article.setLikes(article.getLikes());
+        article.setReactions(article.getReactions());
         article.setViews(article.getViews());
         article.setShares(article.getShares());
 
